@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-i18n="meta.title">अभिषेक आणि मानसी | साखरपुडा</title>
+<meta name="description" data-i18n-attr="content:meta.description" content="">
+<meta name="theme-color" content="#fdf8f4">
+<!-- This is an invitation for people who were sent the link, not a page that
+     wants search traffic. -->
+<meta name="robots" content="noindex, nofollow">
+<!-- Link preview, mostly for WhatsApp. Marathi, because Marathi is the default
+     language. These values are pinned byte for byte to content.js by a test.
+     images/og-preview.png is a typographic card in the site's own palette,
+     rendered from images/og-preview.html. See images/README.md.
+     TODO before sharing the link: change og:image and twitter:image to the
+     absolute deployed URL, which is the one thing that cannot be known yet. -->
+<meta property="og:title" content="अभिषेक आणि मानसी | साखरपुडा">
+<meta property="og:description" content="अभिषेक आणि मानसी यांचा साखरपुडा सोहळा, २४ ऑक्टोबर २०२६, संजोग लॉन्स, अहिल्यानगर.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="mr_IN">
+<meta property="og:image" content="images/og-preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="अभिषेक आणि मानसी | साखरपुडा">
+<meta name="twitter:description" content="अभिषेक आणि मानसी यांचा साखरपुडा सोहळा, २४ ऑक्टोबर २०२६, संजोग लॉन्स, अहिल्यानगर.">
+<meta name="twitter:image" content="images/og-preview.png">
+<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Karla:wght@400;600&family=Noto+Serif+Devanagari:wght@400;600&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="bar">
+  <!-- Hidden until app.js has wired the click, for the same reason the
+       countdown is: a button that cannot do anything should not be offered.
+       Without a working script there is one language, Marathi, and no toggle. -->
+  <button id="lang-toggle" type="button" class="toggle" hidden
+          data-i18n="nav.toggle" data-i18n-attr="aria-label:nav.toggleLabel"></button>
+</header>
+
+<main>
+
+  <!-- The card. There is no photograph and there will not be one, so the hero
+       is the printed patrika itself: a ruled panel carrying the names, the
+       occasion, the date, the time and the place, and nothing else. -->
+  <section class="hero" aria-labelledby="hero-names">
+    <div class="hero__panel">
+      <!-- Everything in this card, and everything in the venue band below,
+           carries its Marathi text in the markup. That is the whole invitation
+           if assets/app.js never loads or the browser ignores type="module".
+           applyTranslations overwrites it otherwise. A test pins every one of
+           these to the mr value in content.js, so they cannot drift. -->
+      <p class="hero__blessing" data-i18n="hero.blessing">॥ श्री ॥</p>
+      <h1 id="hero-names" class="names">
+        <span class="names__one" data-i18n="hero.groom">अभिषेक</span>
+        <span class="names__amp" data-i18n="hero.and">आणि</span>
+        <span class="names__one" data-i18n="hero.bride">मानसी</span>
+      </h1>
+      <p class="hero__occasion" data-i18n="hero.occasion">साखरपुडा सोहळा</p>
+      <hr class="rule">
+      <p class="hero__date" data-i18n="hero.date">शनिवार, २४ ऑक्टोबर २०२६</p>
+      <p class="hero__time" data-i18n="hero.time">सकाळी १०:०० वाजता</p>
+      <p class="hero__where" data-i18n="hero.venueShort">संजोग लॉन्स, अहिल्यानगर</p>
+      <p class="hero__invite" data-i18n="hero.invite">आमच्या आयुष्यातील या आनंदाच्या क्षणी आपण सहकुटुंब उपस्थित राहून आम्हाला आशीर्वाद द्यावेत, ही आग्रहाची विनंती.</p>
+    </div>
+  </section>
+
+  <section id="countdown" class="countdown" aria-labelledby="countdown-heading">
+    <!-- Hidden until startCountdown has real digits to show. Nothing else can
+         drive them, so without a working script they never appear, rather than
+         standing there reading "0 0 0 0" under a heading that promises a count. -->
+    <h2 id="countdown-heading" class="section__title" data-i18n="countdown.heading" hidden></h2>
+    <ul id="countdown-units" class="clock" hidden>
+      <li><span class="clock__n" data-unit="days">0</span><span class="clock__l" data-i18n="countdown.days"></span></li>
+      <li><span class="clock__n" data-unit="hours">0</span><span class="clock__l" data-i18n="countdown.hours"></span></li>
+      <li><span class="clock__n" data-unit="minutes">0</span><span class="clock__l" data-i18n="countdown.minutes"></span></li>
+      <li><span class="clock__n" data-unit="seconds">0</span><span class="clock__l" data-i18n="countdown.seconds"></span></li>
+    </ul>
+    <p id="countdown-passed" class="countdown__passed" data-i18n="countdown.passed" hidden></p>
+  </section>
+
+  <section class="venue" aria-labelledby="venue-heading">
+    <!-- Left aligned and on a tinted band, unlike everything above it. This is
+         the block a guest comes back to on the day, so it is built to be
+         scanned, not admired, and it is seeded: an empty tinted band is a
+         worse thing to show a guest with no script than a plain one. -->
+    <div class="venue__inner">
+      <h2 id="venue-heading" class="section__title" data-i18n="venue.heading">स्थळ</h2>
+      <p class="venue__name" data-i18n="venue.name">संजोग लॉन्स</p>
+      <p class="venue__address" data-i18n="venue.address">संजोग लॉन्स अँड बँक्वेट, राजपालजवळ, डॉन बॉस्को परिसर, अहिल्यानगर, महाराष्ट्र ४१४००३</p>
+      <!-- The href is the real map link, not "#", so this opens the right pin
+           with no script at all. app.js overwrites it from content.js, and a
+           test pins this copy to CONTENT.mapUrl. -->
+      <a id="map-link" class="cta" target="_blank" rel="noopener noreferrer"
+         href="https://www.google.com/maps/search/?api=1&amp;query=19.1370726%2C74.7215185&amp;query_place_id=ChIJ05Bf5ymr3DsR_szczQ0fxwE"
+         data-i18n="venue.mapCta">गूगल मॅपवर उघडा</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <p data-i18n="footer.note"></p>
+</footer>
+
+<script type="module" src="assets/app.js"></script>
+</body>
+</html>

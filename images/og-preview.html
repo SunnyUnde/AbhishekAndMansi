@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="utf-8">
+<title>Link preview card source</title>
+<!-- The source for images/og-preview.png, the card WhatsApp shows when the
+     link is pasted. Not linked from the site and never served to a guest.
+     WhatsApp will not render an SVG, so this has to be rasterised: open it at
+     exactly 1200x630 and screenshot it. images/README.md has the steps.
+     The Marathi text here is pinned to content.js by a test, so it cannot
+     drift from the invitation. The fonts are the site's own. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&family=Noto+Serif+Devanagari:wght@400;600&display=swap">
+<style>
+  html, body { margin: 0; padding: 0; }
+  body {
+    width: 1200px;
+    height: 630px;
+    background: #fdf8f4;
+    color: #3a332f;
+    font-family: "Noto Serif Devanagari", serif;
+    display: grid;
+    place-items: center;
+  }
+  .card {
+    width: 1096px;
+    height: 526px;
+    border: 2px solid #d99b90;
+    border-radius: 10px;
+    position: relative;
+    display: grid;
+    place-items: center;
+    align-content: center;
+    text-align: center;
+  }
+  .card::before {
+    content: "";
+    position: absolute;
+    inset: 10px;
+    border: 1px solid #e4d5ce;
+    border-radius: 6px;
+  }
+  .inner { position: relative; }
+  .blessing { color: #a94b3a; letter-spacing: 0.2em; font-size: 24px; line-height: 1.4; margin: 0 0 18px; }
+  .names { font-size: 76px; line-height: 1.2; margin: 0; }
+  .amp { display: block; font-size: 24px; color: #a94b3a; letter-spacing: 0.14em; margin: 8px 0 4px; }
+  .occasion { color: #a94b3a; font-size: 26px; line-height: 1.4; letter-spacing: 0.04em; margin: 18px 0 0; }
+  .rule { border: 0; border-top: 1px solid #e4d5ce; width: 120px; margin: 16px auto; }
+  .date { font-size: 38px; line-height: 1.4; margin: 0; }
+  .where { color: #665a53; font-size: 24px; line-height: 1.4; margin: 12px 0 0; }
+</style>
+</head>
+<body>
+  <div class="card"><div class="inner">
+    <p class="blessing">॥ श्री ॥</p>
+    <p class="names">अभिषेक<span class="amp">आणि</span>मानसी</p>
+    <p class="occasion">साखरपुडा सोहळा</p>
+    <hr class="rule">
+    <p class="date">शनिवार, २४ ऑक्टोबर २०२६</p>
+    <p class="where">संजोग लॉन्स, अहिल्यानगर</p>
+  </div></div>
+</body>
+</html>
