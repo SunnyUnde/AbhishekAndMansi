@@ -61,7 +61,30 @@
         <span class="names__one" data-i18n="hero.bride">मानसी</span>
       </h1>
       <p class="hero__occasion" data-i18n="hero.occasion">साखरपुडा सोहळा</p>
-      <hr class="rule">
+      <!-- The divider, and the one thing on this page that belongs to these two
+           people rather than to invitations in general: Abhishek is a doctor,
+           so the rule through the middle of the card is an ECG trace. Two
+           gradient hairlines carry a single heartbeat between them. It is
+           decorative from end to end, says nothing, and carries no text, so it
+           is hidden from assistive technology. It draws itself once, after the
+           cover app.js lays over the page has gone, and then never moves
+           again. With no script there is no cover and the trace simply draws
+           on its own. -->
+      <svg class="ornament" aria-hidden="true" focusable="false" viewBox="0 0 320 36">
+        <!-- One path, not a hairline plus a symbol plus a hairline: three
+             separate pieces left visible seams where they met. The fade at
+             both ends is in the stroke itself. pathLength="100" lets the draw
+             be written in whole percent with no need to measure the path. -->
+        <defs>
+          <linearGradient id="ecg-fade" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-opacity="0"/>
+            <stop offset="0.34" stop-opacity="1"/>
+            <stop offset="0.66" stop-opacity="1"/>
+            <stop offset="1" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <path stroke="url(#ecg-fade)" pathLength="100" d="M0 18 H130 c2 0 3.5 -5 6 -5 s4 5 6 5 H150 l3 5 l4.5 -17 l4.5 23 l3.5 -11 H174 c3 0 4.5 -7 8 -7 s5 7 8 7 H320"/>
+      </svg>
       <p class="hero__date" data-i18n="hero.date">शनिवार, २४ ऑक्टोबर २०२६</p>
       <p class="hero__time" data-i18n="hero.time">सकाळी १०:०० वाजता</p>
       <p class="hero__where" data-i18n="hero.venueShort">संजोग लॉन्स, अहिल्यानगर</p>
@@ -106,6 +129,12 @@
 <footer class="foot">
   <p data-i18n="footer.note"></p>
 </footer>
+
+<!-- Laid paper. Two fields of very faint dots behind everything, so the cream
+     reads as a sheet rather than a wall of flat colour. Static markup and pure
+     CSS, so it survives a page with no script, and it sits behind the content
+     at z-index -1 where it can never take a tap. -->
+<div class="dust" aria-hidden="true"></div>
 
 <script type="module" src="assets/app.js"></script>
 </body>
