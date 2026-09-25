@@ -46,13 +46,18 @@ front of one: with no JavaScript there is no envelope and the guest simply
 reads the invitation. It does not animate at all under
 `prefers-reduced-motion: reduce`.
 
-## Before sharing the link
+## Sharing and search
 
-One step, in `images/README.md`: point `og:image` and `twitter:image` at the
-absolute deployed URL instead of the relative path.
+Live at https://abhishek-and-mansi.netlify.app
 
-The site is also marked `noindex, nofollow` on purpose. This is an invitation
-for people who were sent the link, not a page that wants search traffic.
+Nothing is left to do before sharing the link. `content.js` holds `siteUrl`,
+and every absolute URL on the page is built from it: `og:image`,
+`twitter:image`, `og:url`, the canonical link and the schema.org `Event`. A
+test pins all of them, so moving to a custom domain is a one line edit there.
+
+The page is marked `index, follow` and carries a schema.org `Event` with the
+date, the venue and its coordinates. That is what a search engine reads; the
+Open Graph tags, in Marathi, are what WhatsApp reads.
 
 ## Running it locally
 

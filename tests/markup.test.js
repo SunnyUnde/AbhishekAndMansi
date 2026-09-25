@@ -110,27 +110,62 @@ test("the seeded map link href matches CONTENT.mapUrl exactly", () => {
 
 test("the link preview tags match content.js mr exactly", () => {
   const meta = (name) => {
-    const found = html.match(new RegExp(`<meta (?:property|name)="${name}" content="([^"]*)">`));
+    // The name and the content are not always adjacent: the description tag
+    // also carries data-i18n-attr, so app.js can swap it with the language.
+    const found = html.match(new RegExp(`<meta (?:property|name)="${name}"[^>]*? content="([^"]*)"`));
     assert.ok(found, `no ${name} meta tag found`);
     return found[1];
   };
   for (const name of ["og:title", "twitter:title"]) {
     assert.equal(meta(name), CONTENT.strings["meta.title"].mr);
   }
-  for (const name of ["og:description", "twitter:description"]) {
+  // description is seeded, not left empty for app.js to fill, because the
+  // crawlers and link scrapers that read it never run app.js.
+  for (const name of ["description", "og:description", "twitter:description"]) {
     assert.equal(meta(name), CONTENT.strings["meta.description"].mr);
   }
-  // Before launch this is the relative path to the card in the repository.
-  // images/README.md instructs whoever launches the site to replace it with
-  // the absolute deployed URL, which Open Graph requires, so this must accept
-  // both and not turn red the day that documented step is done.
-  const isPlaceholder = (v) => v === "images/og-preview.png";
-  const isDeployedUrl = (v) => /^https?:\/\/[^\s"]+\/images\/og-preview\.png$/i.test(v);
+  assert.equal(meta("og:image:alt"), CONTENT.strings["meta.title"].mr);
+  // Open Graph requires absolute URLs. Every one of them is built from
+  // CONTENT.siteUrl, so a domain change stays a one line edit in content.js.
   for (const name of ["og:image", "twitter:image"]) {
-    const value = meta(name);
-    assert.ok(isPlaceholder(value) || isDeployedUrl(value), `${name} is neither the placeholder path nor an absolute deployed URL: ${value}`);
+    assert.equal(meta(name), `${CONTENT.siteUrl}/images/og-preview.png`);
   }
-  assert.equal(meta("robots"), "noindex, nofollow");
+  assert.equal(meta("og:url"), `${CONTENT.siteUrl}/`);
+  assert.equal(meta("robots"), "index, follow");
+});
+
+test("the canonical link points at the deployed origin", () => {
+  const found = html.match(/<link rel="canonical" href="([^"]*)">/);
+  assert.ok(found, "no canonical link found");
+  assert.equal(found[1], `${CONTENT.siteUrl}/`);
+});
+
+// A third copy of the date, the venue and the coordinates lives in the
+// JSON-LD, and it is in the markup rather than built by app.js because the
+// crawlers that read it do not run scripts. That makes it the same kind of
+// drift hazard as the seeded text, so pin it the same way.
+test("the structured data matches content.js exactly", () => {
+  const found = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
+  assert.ok(found, "no application/ld+json script found");
+  const ld = JSON.parse(found[1]);
+
+  assert.equal(ld["@type"], "Event");
+  assert.equal(ld.name, CONTENT.strings["meta.title"].en);
+  assert.equal(ld.description, CONTENT.strings["meta.description"].en);
+  assert.equal(ld.startDate, CONTENT.eventISO);
+  assert.equal(ld.url, `${CONTENT.siteUrl}/`);
+  assert.equal(ld.image, `${CONTENT.siteUrl}/images/og-preview.png`);
+
+  assert.equal(ld.location.name, CONTENT.strings["venue.name"].en);
+  assert.equal(ld.location.address, CONTENT.strings["venue.address"].en);
+  assert.equal(ld.location.hasMap, CONTENT.mapUrl);
+
+  // The coordinates are written once, inside the Maps URL. Read them back out
+  // of it rather than trusting a second hand copy.
+  const query = new URL(CONTENT.mapUrl).searchParams.get("query");
+  const [lat, lng] = query.split(",").map(Number);
+  assert.equal(ld.location.geo.latitude, lat);
+  assert.equal(ld.location.geo.longitude, lng);
 });
 
 // images/og-preview.png is a raster, so nothing can read it back and check it.

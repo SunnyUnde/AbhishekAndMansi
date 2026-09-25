@@ -29,18 +29,11 @@ to match. It cannot check the PNG, so after editing the HTML you must
 
 It has to be a raster. WhatsApp will not render an SVG as a preview image.
 
-## TODO before sharing the link
+## Where the card is referenced
 
-One step, and it is the only thing left in the repository that cannot be done
-yet because it needs the deployed address.
-
-In `index.html`, change `og:image` and `twitter:image` from the relative path
-`images/og-preview.png` to the **absolute** deployed URL, for example
-`https://the-real-domain.netlify.app/images/og-preview.png`. WhatsApp,
-Facebook and X all ignore a relative `og:image`, so until this is done the
-link pastes with the title and description but no card. The test accepts
-either form, so making this change will not turn the suite red.
-
-While adding the absolute URL, consider adding `og:url` and a
-`<link rel="canonical">` with the same origin. Both were left out for the same
-reason: there is no deployed URL to put in them yet.
+`og:image` and `twitter:image` in `index.html` point at
+`${siteUrl}/images/og-preview.png`. WhatsApp, Facebook and X all ignore a
+relative `og:image`, which is why the URL is absolute, and why the origin
+lives once in `content.js` as `siteUrl` rather than being typed out per tag.
+If the card is re-rendered at a different size, update `og:image:width` and
+`og:image:height` to match.

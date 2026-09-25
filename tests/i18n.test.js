@@ -37,9 +37,10 @@ test("every string in content.js has both languages", () => {
 test("content.js exposes the required top level fields", () => {
   assert.equal(typeof CONTENT.eventISO, "string");
   assert.equal(typeof CONTENT.mapUrl, "string");
+  assert.equal(typeof CONTENT.siteUrl, "string");
   assert.equal(typeof CONTENT.strings, "object");
   assert.ok(CONTENT.strings !== null);
-  assert.deepEqual(Object.keys(CONTENT).sort(), ["eventISO", "mapUrl", "strings"]);
+  assert.deepEqual(Object.keys(CONTENT).sort(), ["eventISO", "mapUrl", "siteUrl", "strings"]);
   assert.equal(Object.isFrozen(CONTENT), true);
 });
 
@@ -54,6 +55,13 @@ test("eventISO is a parseable instant carrying an explicit UTC offset", () => {
     "eventISO must state its own offset, or it means a different moment in every timezone"
   );
   assert.ok(!Number.isNaN(Date.parse(CONTENT.eventISO)), "eventISO does not parse");
+});
+
+// Everything absolute on the page is built by joining a path onto siteUrl, so
+// a trailing slash here becomes a double slash in an og:image a scraper may
+// refuse, and a bare host becomes a URL Open Graph will not accept at all.
+test("siteUrl is an absolute https origin with no trailing slash", () => {
+  assert.match(CONTENT.siteUrl, /^https:\/\/[^\s\/]+$/, `siteUrl must be a bare https origin: ${CONTENT.siteUrl}`);
 });
 
 // Every placeholder is now filled in. This is what stops a half finished

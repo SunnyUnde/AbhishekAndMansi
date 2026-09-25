@@ -13,6 +13,12 @@ export const CONTENT = Object.freeze({
   // There is more than one Sanjog Lawns, so a plain name search is not safe.
   mapUrl: "https://www.google.com/maps/search/?api=1&query=19.1370726%2C74.7215185&query_place_id=ChIJ05Bf5ymr3DsR_szczQ0fxwE",
 
+  // The deployed origin, no trailing slash. Open Graph, the canonical link and
+  // schema.org all require absolute URLs, so this is the one address on the
+  // page that cannot be written as a relative path. A test pins every absolute
+  // URL in index.html to this value, so changing the domain is a one line edit.
+  siteUrl: "https://abhishek-and-mansi.netlify.app",
+
   strings: {
     "meta.title": { mr: "अभिषेक आणि मानसी | साखरपुडा", en: "Abhishek and Mansi | Engagement" },
     "meta.description": {
