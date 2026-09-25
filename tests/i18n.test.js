@@ -95,3 +95,18 @@ test("writeLang stores under the shared key and swallows storage errors", () => 
   assert.deepEqual(calls, [[STORAGE_KEY, "en"]]);
   assert.doesNotThrow(() => writeLang({ setItem: () => { throw new Error("blocked"); } }, "en"));
 });
+
+// The shloka is recited, so the English is a transliteration and not a
+// translation, and its verse marks are the ASCII pipes a reciter reads. The
+// Devanagari keeps the real dandas: a single one closing the first line and a
+// double one closing the verse. Both are deliberate, like the Latin countdown
+// digits, and both are exactly the kind of thing a later pass "corrects".
+test("the shloka keeps its dandas in Marathi and its pipes in English", () => {
+  const one = CONTENT.strings["hero.shlokaOne"];
+  const two = CONTENT.strings["hero.shlokaTwo"];
+  assert.ok(one.mr.endsWith("।") && !one.mr.endsWith("॥"), "line one must close with a single danda");
+  assert.ok(two.mr.endsWith("॥"), "line two must close with a double danda");
+  assert.ok(one.en.endsWith(" |") && !one.en.endsWith("||"), "the transliterated line one must close with one pipe");
+  assert.ok(two.en.endsWith(" ||"), "the transliterated line two must close with two pipes");
+  assert.ok(!/[ऀ-ॿ]/.test(one.en + two.en), "the English shloka must be transliterated, not Devanagari");
+});

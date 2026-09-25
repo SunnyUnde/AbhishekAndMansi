@@ -55,6 +55,15 @@
            applyTranslations overwrites it otherwise. A test pins every one of
            these to the mr value in content.js, so they cannot drift. -->
       <p class="hero__blessing" data-i18n="hero.blessing">॥ श्री ॥</p>
+      <!-- The Ganesh shloka, seeded like the facts below it. ॥ श्री ॥ is
+           already in the markup, and half an invocation printed on the card
+           reads as a truncated one, not as a card with less character. Two
+           spans rather than one paragraph with a break, because each line is
+           its own string. -->
+      <p class="shloka">
+        <span class="shloka__line" data-i18n="hero.shlokaOne">वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ ।</span>
+        <span class="shloka__line" data-i18n="hero.shlokaTwo">निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा ॥</span>
+      </p>
       <h1 id="hero-names" class="names">
         <span class="names__one" data-i18n="hero.groom">अभिषेक</span>
         <span class="names__amp" data-i18n="hero.and">आणि</span>
@@ -62,28 +71,42 @@
       </h1>
       <p class="hero__occasion" data-i18n="hero.occasion">साखरपुडा सोहळा</p>
       <!-- The divider, and the one thing on this page that belongs to these two
-           people rather than to invitations in general: Abhishek is a doctor,
-           so the rule through the middle of the card is an ECG trace. Two
-           gradient hairlines carry a single heartbeat between them. It is
+           people rather than to invitations in general. Both of them are
+           waveforms: Mansi reads electrical and computer science, Abhishek is
+           a doctor. So the rule through the middle of the card is her signal
+           running into his heartbeat, two signals on one line. It is
            decorative from end to end, says nothing, and carries no text, so it
            is hidden from assistive technology. It draws itself once, after the
            cover app.js lays over the page has gone, and then never moves
            again. With no script there is no cover and the trace simply draws
            on its own. -->
       <svg class="ornament" aria-hidden="true" focusable="false" viewBox="0 0 320 36">
-        <!-- One path, not a hairline plus a symbol plus a hairline: three
-             separate pieces left visible seams where they met. The fade at
-             both ends is in the stroke itself. pathLength="100" lets the draw
-             be written in whole percent with no need to measure the path. -->
+        <!-- One path, not a wave plus a beat plus the rules between them:
+             separate pieces left visible seams where they met, and two pieces
+             would read as two ornaments rather than as one line that becomes
+             the other. The fade at both ends is in the stroke itself.
+             pathLength="100" lets the draw be written in whole percent with no
+             need to measure the path.
+             The plateau is 20% to 80% rather than the 34% to 66% it was when
+             the only event on the line sat dead centre. The sine now occupies
+             the left of the line and the beat the right, and at the old stops
+             her half would have been a ghost beside his. -->
         <defs>
-          <linearGradient id="ecg-fade" x1="0" y1="0" x2="1" y2="0">
+          <linearGradient id="trace-fade" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0" stop-opacity="0"/>
-            <stop offset="0.34" stop-opacity="1"/>
-            <stop offset="0.66" stop-opacity="1"/>
+            <stop offset="0.2" stop-opacity="1"/>
+            <stop offset="0.8" stop-opacity="1"/>
             <stop offset="1" stop-opacity="0"/>
           </linearGradient>
         </defs>
-        <path stroke="url(#ecg-fade)" pathLength="100" d="M0 18 H130 c2 0 3.5 -5 6 -5 s4 5 6 5 H150 l3 5 l4.5 -17 l4.5 23 l3.5 -11 H174 c3 0 4.5 -7 8 -7 s5 7 8 7 H320"/>
+        <!-- Left to right: a flat lead in, two and a half cycles of sine at
+             half her partner's amplitude (hers, smooth and analog), a flat
+             segment where the signal settles, one cardiac complex (his, the
+             tuned P, QRS and T that this line has always carried), then flat
+             out to nothing. Each sine lobe is one cubic; the s commands take
+             their first control point from the reflection of the last, so the
+             wave cannot kink where two lobes meet. -->
+        <path stroke="url(#trace-fade)" pathLength="100" d="M0 18 h48 c9.4 -8 16.6 -8 26 0 s16.6 8 26 0 s16.6 -8 26 0 s16.6 8 26 0 s16.6 -8 26 0 h22 c2 0 3.5 -5 6 -5 s4 5 6 5 h8 l3 5 l4.5 -17 l4.5 23 l3.5 -11 h8.5 c3 0 4.5 -7 8 -7 s5 7 8 7 h60"/>
       </svg>
       <p class="hero__date" data-i18n="hero.date">शनिवार, २४ ऑक्टोबर २०२६</p>
       <p class="hero__time" data-i18n="hero.time">सकाळी १०:०० वाजता</p>

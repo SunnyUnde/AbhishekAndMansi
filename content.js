@@ -24,6 +24,21 @@ export const CONTENT = Object.freeze({
     "nav.toggleLabel": { mr: "भाषा बदला", en: "Change language" },
 
     "hero.blessing": { mr: "॥ श्री ॥", en: "॥ Shree ॥" },
+    // The Ganesh shloka that completes the invocation above it. Two keys, not
+    // one string with a newline in it, because these are set with textContent
+    // and a literal newline would collapse to a space.
+    // The English is transliterated, never translated: a shloka is recited,
+    // not read for meaning, and the dandas are carried across as the ASCII
+    // pipes a reciter expects. The single danda ends the first line and the
+    // double danda closes the verse, so neither is punctuation to tidy up.
+    "hero.shlokaOne": {
+      mr: "वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ ।",
+      en: "Vakratunda Mahakaya Suryakoti Samaprabha |"
+    },
+    "hero.shlokaTwo": {
+      mr: "निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा ॥",
+      en: "Nirvighnam Kuru Me Deva Sarvakaryeshu Sarvada ||"
+    },
     "hero.invite": {
       mr: "आमच्या आयुष्यातील या आनंदाच्या क्षणी आपण सहकुटुंब उपस्थित राहून आम्हाला आशीर्वाद द्यावेत, ही आग्रहाची विनंती.",
       en: "Please join us, with your family, for this happy moment in our lives. Your presence and your blessings would mean everything to us."

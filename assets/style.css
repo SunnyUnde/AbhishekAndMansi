@@ -68,6 +68,7 @@ html[lang="mr"] .names { line-height: 1.32; }
    Latin numerals in both languages, sitting beside the Devanagari date. The
    family chose that mix on purpose. It is not a defect to tidy up. */
 html[lang="mr"] .names,
+html[lang="mr"] .shloka,
 html[lang="mr"] .hero__date,
 html[lang="mr"] .section__title,
 html[lang="mr"] .countdown__passed,
@@ -211,7 +212,40 @@ html[lang="mr"] .section__title { font-size: 1.3rem; }
 }
 
 .hero__blessing { font-family: var(--devanagari); color: var(--blush-text);
-  letter-spacing: 0.2em; margin: 0 0 1.75rem; }
+  letter-spacing: 0.2em; margin: 0 0 0.75rem; }
+
+/* The shloka that finishes the invocation. It sits directly above names set at
+   84px, so it is the quietest text on the card: the muted ink tier rather than
+   the accent, which stays with ॥ श्री ॥ so the mark leads and the verse
+   follows. No tracking at all, because Devanagari takes none, and leading well
+   past the body's, because two lines of matras at this size close up. Each
+   line is its own block, so the verse breaks where the verse breaks, and the
+   measure is narrow enough that the block never spreads out under the names on
+   a desktop. */
+.shloka {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(0.8rem, 3.6vw, 0.95rem);
+  line-height: 1.6;
+  color: var(--ink-soft);
+  max-width: 24rem;
+  margin: 0 auto 1.6rem;
+}
+/* Latin standing in a Devanagari slot: italic Cormorant reads as sound being
+   recited rather than as an English sentence someone forgot to translate. The
+   transliteration is the longer of the two settings and the only one that can
+   run out of room, which is why it alone steps down with the viewport and is
+   balanced: on a 320px phone its second line needs 244px of a 236px column,
+   so it breaks, and balanced it breaks near the middle of the line rather
+   than dropping "Sarvada ||" on a line of its own. */
+.shloka__line { display: block; text-wrap: balance; }
+/* Devanagari has room to spare at every width, so it is set flat at the size
+   the verse wants, 15.2px against names of 48px on the narrowest phone. */
+html[lang="mr"] .shloka {
+  font-style: normal;
+  font-size: 0.95rem;
+  line-height: 1.95;
+}
 
 /* Two first names and a conjunction are now almost the entire hero, so they
    are sized to carry it. First names alone take far more scale than a full
@@ -230,11 +264,13 @@ html[lang="mr"] .names__amp { font-style: normal; letter-spacing: 0.12em; }
   font-size: 0.8rem; margin: 1.5rem 0 0; }
 html[lang="mr"] .hero__occasion { text-transform: none; letter-spacing: 0.04em; font-size: 0.95rem; }
 
-/* The heartbeat, in place of the plain 4rem hairline that used to sit here:
-   a printed rule that fades out at both ends and beats once in the middle.
-   The groom is a doctor, and this is the only place on the page that says so.
-   No stethoscope, no caduceus, no text. A heartbeat happens to mean both
-   halves of what this card is about, which is why it is allowed to stay. */
+/* The trace, in place of the plain 4rem hairline that used to sit here: a
+   printed rule that fades out at both ends and carries both of them on the
+   way across. She reads electrical and computer science, he is a doctor, and
+   both of those are waveforms, so her sine runs the first half of the line
+   and settles into his single beat in the second. Two signals, one line,
+   which is the other thing this card is about. No stethoscope, no circuit,
+   no text. */
 .ornament {
   display: block;
   width: min(17.5rem, 80%);
@@ -242,7 +278,7 @@ html[lang="mr"] .hero__occasion { text-transform: none; letter-spacing: 0.04em; 
   margin: 1.6rem auto;
 }
 /* The fade lives in the stroke, so the rule reads as one line that happens to
-   beat once in the middle rather than as a symbol dropped between two rules. */
+   wave and then beat rather than as two symbols dropped between three rules. */
 .ornament stop { stop-color: var(--blush); }
 .ornament path {
   fill: none;
@@ -254,11 +290,13 @@ html[lang="mr"] .hero__occasion { text-transform: none; letter-spacing: 0.04em; 
      page has one moment of motion rather than two competing ones. The resting
      state is the finished line and the animation borrows its own start from
      backwards fill, so a browser that runs no animation at all shows the
-     trace complete rather than showing nothing. */
+     trace complete rather than showing nothing. Still 1.6s after the wave
+     was added: the line only grew from 373 units to 389, so the pen speed
+     this duration was tuned to is within a twentieth of what it was. */
   stroke-dasharray: 100;
-  animation: ecg-draw 1.6s cubic-bezier(0.45, 0, 0.3, 1) 1.5s backwards;
+  animation: trace-draw 1.6s cubic-bezier(0.45, 0, 0.3, 1) 1.5s backwards;
 }
-@keyframes ecg-draw {
+@keyframes trace-draw {
   from { stroke-dashoffset: 100; }
   to { stroke-dashoffset: 0; }
 }
@@ -442,8 +480,8 @@ html[lang="mr"] .clock__l { text-transform: none; letter-spacing: 0.02em; font-s
 
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
-  /* The heartbeat is printed, not drawn. Cancelling the animation leaves the
-     resting state, which is the finished trace. */
+  /* The trace is printed, not drawn. Cancelling the animation leaves the
+     resting state, which is the finished line. */
   .ornament path { animation: none; }
   * { scroll-behavior: auto !important; }
   /* Belt to app.js's braces: playEnvelope already declines to build anything
