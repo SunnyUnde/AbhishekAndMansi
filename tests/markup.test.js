@@ -191,3 +191,21 @@ test("every id app.js passes to getElementById exists in index.html", () => {
   const missing = [...ids].filter((id) => !html.includes(`id="${id}"`));
   assert.deepEqual(missing, [], `index.html is missing ids referenced by app.js: ${missing.join(", ")}`);
 });
+
+// The same drift hazard as the seeded text, one layer out. index.html and
+// assets/app.js are deployed together and must be read together, but the
+// asset filenames carry no content hash, so a browser holding a cached app.js
+// cannot tell it is stale. This already happened once in development, with a
+// cached content.js rendering raw key names against fresh markup, and a guest
+// has no one to tell them to hard reload. Netlify's default revalidates every
+// request; anything longer lived here re-opens that window.
+test("no long lived cache header is set on the unhashed asset paths", () => {
+  const toml = readFileSync(new URL("../netlify.toml", import.meta.url), "utf8");
+  for (const [, seconds] of toml.matchAll(/max-age\s*=\s*(\d+)/gi)) {
+    assert.equal(
+      Number(seconds), 0,
+      `netlify.toml caches an asset for ${seconds}s, but the filenames carry no ` +
+      "content hash, so a guest cannot tell a stale copy from a current one"
+    );
+  }
+});

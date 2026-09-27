@@ -9,7 +9,9 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "no-referrer"
 
-[[headers]]
-  for = "/assets/*"
-  [headers.values]
-    Cache-Control = "public, max-age=3600"
+# No Cache-Control on /assets/*. These filenames carry no content hash, so a
+# cached copy is indistinguishable from a current one, and a guest who loaded
+# the site mid-deploy would hold a stale app.js against fresh markup with no
+# way to be told to reload. Netlify's default, max-age=0 must-revalidate,
+# makes every request an ETag check: a 304 when nothing changed, the new file
+# when something did. Do not add one back without hashing the filenames first.
