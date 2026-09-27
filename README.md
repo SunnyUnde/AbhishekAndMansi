@@ -1,7 +1,7 @@
 # Abhishek and Mansi
 
-Engagement invitation site. Saturday 24 October 2026, 10:00 AM, Sanjog Lawns,
-Ahilyanagar.
+Engagement invitation site. Saturday 24 October 2026, 10:00 AM, Kanifnath
+Mangal Karyalay, Shri Kshetra Madhi, Tal. Pathardi, Dist. Ahilyanagar.
 
 The page is a hero card, a countdown and the venue. There are no photographs,
 no parents' names, no contact numbers and no travel notes. That is the whole

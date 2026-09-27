@@ -10,8 +10,10 @@ export const CONTENT = Object.freeze({
   // The Maps URLs form Google documents for opening one specific place:
   // query carries the coordinates as the human readable fallback, and
   // query_place_id pins which place is meant. Both are required together.
-  // There is more than one Sanjog Lawns, so a plain name search is not safe.
-  mapUrl: "https://www.google.com/maps/search/?api=1&query=19.1370726%2C74.7215185&query_place_id=ChIJ05Bf5ymr3DsR_szczQ0fxwE",
+  // The coordinates and the place id were both read out of the share link
+  // for the venue, and the result was opened in a browser to confirm it
+  // lands on the right pin rather than on the village.
+  mapUrl: "https://www.google.com/maps/search/?api=1&query=19.152206%2C75.1053699&query_place_id=ChIJb37tCwBb2zsRMcSjGLz745U",
 
   // The deployed origin, no trailing slash. Open Graph, the canonical link and
   // schema.org all require absolute URLs, so this is the one address on the
@@ -22,8 +24,8 @@ export const CONTENT = Object.freeze({
   strings: {
     "meta.title": { mr: "अभिषेक आणि मानसी | साखरपुडा", en: "Abhishek and Mansi | Engagement" },
     "meta.description": {
-      mr: "अभिषेक आणि मानसी यांचा साखरपुडा सोहळा, २४ ऑक्टोबर २०२६, संजोग लॉन्स, अहिल्यानगर.",
-      en: "The engagement of Abhishek and Mansi, 24 October 2026, Sanjog Lawns, Ahilyanagar."
+      mr: "अभिषेक आणि मानसी यांचा साखरपुडा सोहळा, २४ ऑक्टोबर २०२६, श्री क्षेत्र मढी, ता. पाथर्डी.",
+      en: "The engagement of Abhishek and Mansi, 24 October 2026, Shri Kshetra Madhi, Pathardi."
     },
 
     "nav.toggle": { mr: "English", en: "मराठी" },
@@ -55,7 +57,7 @@ export const CONTENT = Object.freeze({
     "hero.occasion": { mr: "साखरपुडा सोहळा", en: "Engagement Ceremony" },
     "hero.date": { mr: "शनिवार, २४ ऑक्टोबर २०२६", en: "Saturday, 24 October 2026" },
     "hero.time": { mr: "सकाळी १०:०० वाजता", en: "10:00 AM" },
-    "hero.venueShort": { mr: "संजोग लॉन्स, अहिल्यानगर", en: "Sanjog Lawns, Ahilyanagar" },
+    "hero.venueShort": { mr: "कानिफनाथ मंगल कार्यालय, मढी", en: "Kanifnath Mangal Karyalay, Madhi" },
 
     "countdown.heading": { mr: "सोहळ्यासाठी उरलेले दिवस", en: "Counting down to the day" },
     "countdown.days": { mr: "दिवस", en: "Days" },
@@ -68,10 +70,10 @@ export const CONTENT = Object.freeze({
     },
 
     "venue.heading": { mr: "स्थळ", en: "Venue" },
-    "venue.name": { mr: "संजोग लॉन्स", en: "Sanjog Lawns" },
+    "venue.name": { mr: "कानिफनाथ मंगल कार्यालय", en: "Kanifnath Mangal Karyalay" },
     "venue.address": {
-      mr: "संजोग लॉन्स अँड बँक्वेट, राजपालजवळ, डॉन बॉस्को परिसर, अहिल्यानगर, महाराष्ट्र ४१४००३",
-      en: "Sanjog Lawns and Banquet, near Rajpal, Don Bosco Area, Ahilyanagar, Maharashtra 414003"
+      mr: "श्री क्षेत्र मढी, ता. पाथर्डी, जि. अहिल्यानगर",
+      en: "Shri Kshetra Madhi, Tal. Pathardi, Dist. Ahilyanagar"
     },
     "venue.mapCta": { mr: "गूगल मॅपवर उघडा", en: "Open in Google Maps" },
 
