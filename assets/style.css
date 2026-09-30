@@ -399,7 +399,9 @@ html[lang="mr"] .clock__l { text-transform: none; letter-spacing: 0.02em; font-s
 
 .foot { text-align: center; padding: 2.5rem var(--gutter) 3.5rem; color: var(--ink-soft);
   font-size: 0.9rem; }
-.foot__credit { margin: 2rem 0 0; text-align: right; font-size: 0.75rem; }
+/* Held to main's width so on a wide screen it lines up with the venue band's
+   right edge instead of the window's. */
+.foot__credit { max-width: 64rem; margin: 2.5rem auto 0; text-align: right; font-size: 0.75rem; }
 .foot__credit a { color: inherit; }
 
 /* Entry motion, opt out respected. */

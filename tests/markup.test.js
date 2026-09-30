@@ -210,6 +210,6 @@ test("no long lived cache header is set on the unhashed asset paths", () => {
   }
 });
 
-test("the footer credit links the maker's email", () => {
-  assert.match(html, /<p class="foot__credit">Created by Sunny Unde, <a href="mailto:sunnyunde@gmail\.com">sunnyunde@gmail\.com<\/a><\/p>/);
+test("the footer credit links the maker's name to their email", () => {
+  assert.match(html, /<p class="foot__credit">Made by <a href="mailto:sunnyunde@gmail\.com">Sunny Unde<\/a><\/p>/);
 });
